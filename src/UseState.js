@@ -1,4 +1,6 @@
 import React from "react";
+import { Loading } from "./Loading";
+import { Error } from "./Error";
 
 const SECURITY_CODE = 'paradigma';
 
@@ -18,6 +20,7 @@ function UseState({name}){
                 if(value !== SECURITY_CODE){
                     setError(true)
                 }
+
                 setLoading(false)
 
                 
@@ -37,13 +40,8 @@ function UseState({name}){
 
                 <p>Por favor escribe el codigo de seguridad </p>
 
-                {error && (
-                    <p>Error: el codigo es incorrecto</p>
-                    )}
-
-                {loading && (
-                    <p>Cargando...</p>
-                    )}
+                {(error && !loading) && (<Error />)}
+                {loading && (<Loading />)}
 
                 <input 
                 placeholder="Codigo de seguridad"
@@ -51,10 +49,17 @@ function UseState({name}){
                 onChange={(event)=>{
                     setValue(event.target.value)
                 }}
+                onClick={() => {
+                    setError(false)    
+                }
+                }
                 
                 />
                 <button
-                onClick={() => setLoading(true)}
+                onClick={() => {
+                    setError(false)
+                    setLoading(true)}
+                }
                 >Comprobar</button>
             </div>
         )
