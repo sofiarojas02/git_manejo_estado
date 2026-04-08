@@ -1,15 +1,23 @@
 import React from "react";
 import { Loading } from "./Loading";
+import { Error } from "./Error";
+
+const SECURITY_CODE = 'paradigma';
+
+
 
 class ClassState extends React.Component {
     constructor(props){
         super(props)
 
         this.state = {
-            error: true,
+            error: false,
             loading: false,
+            value: '',
         }
     }
+
+    
 
     // // componentWillMount
     // UNSAFE_componentWillMount(){
@@ -27,8 +35,13 @@ class ClassState extends React.Component {
         if(this.state.loading){
             setTimeout(()=>{
                 console.log('Inicio validacion')
+
+                if(this.state.value === SECURITY_CODE){
+                    this.setState({error: false, loading: false})
+                }else{
+                    this.setState({error: true, loading: false})
+                }
                 
-                this.setState({loading: false})
     
                 console.log('fin validacion')
     
@@ -39,6 +52,7 @@ class ClassState extends React.Component {
 
     }
 
+    
     render(){
         return(
             <div>
@@ -46,8 +60,8 @@ class ClassState extends React.Component {
 
                 <p>Por favor escribe el codigo de seguridad </p>
 
-                {this.state.error && (
-                    <p>Error: el codigo es incorrecto</p>
+                {(this.state.error && !this.state.loading) && (
+                    <Error />
                 )}
 
                 {this.state.loading && (
@@ -55,7 +69,16 @@ class ClassState extends React.Component {
                 )}
 
 
-                <input placeholder="Codigo de seguridad"/>
+                <input 
+                placeholder="Codigo de seguridad"
+                value={this.state.value}
+                onChange={(event) => {
+                    this.setState({value: event.target.value})
+                }
+                }
+                onClick={ () =>
+                    this.setState({error: false}) }   
+                />
                 <button
                 onClick={()=>
                     this.setState({loading: true})
