@@ -60,7 +60,7 @@ function UseState({name}){
                     setError(false)
                     setLoading(true)}
                 }
-                >Comprobar</button>
+                >Comprobaremos</button>
             </div>
         )
 }
