@@ -37,7 +37,7 @@ class ClassState extends React.Component {
                 console.log('Inicio validacion')
 
                 if(this.state.value === SECURITY_CODE){
-                    this.setState({error: false, loading: false})
+                    this.setState({loading: false})
                 }else{
                     this.setState({error: true, loading: false})
                 }
